@@ -77,8 +77,10 @@ def main():
 
     try:
         dist.init_process_group(backend='mpi')
-    except:
-        print("[INFO] WARNING: Have initialized the process group")
+    except Exception as e:
+        print("[WARNING]: MPI process group initialization failed. Exception: {e}. "
+              "Possible reasons: PyTorch is not compiled with MPI support or "
+              "MPI process group has already been initialized.")
     rank = dist.get_rank()
 
     summarize = args.summarize
